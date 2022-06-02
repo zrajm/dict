@@ -1,0 +1,392 @@
+$tab: (10)
+En engelsk­svensk/svensk­engelsk ordlista.
+
+Innehåll:
+
+  Filer.
+  Kommentarer.
+  Lite juridiskt krafs.
+  Ursprungligt förord.
+
+
+Filer.
+
+  Fil             Beskrivning
+ =================================================================
+  Inledn.txt      Inledande text (denna fil).
+  SvEnDict.txt    Svensk­engelska ordlista, 58128 uppslagsord.
+  EnSvDict.txt    Engelsk­svenska ordlista, 38875 uppslagsord.
+  SvEnIndx.txt    Byteoffsetindex till den svensk­engelska delen.
+  EnSvIndx.txt    Byteoffsetindex till den engelsk­svenska delen.
+ =================================================================
+
+
+Kommentarer.
+
+Detta arkiv innehåller en version av Prismas engelsk­svenska/
+svensk­engelska ordlista i ASCII/Latin-1 format. Ordlistan var
+ursprungligen avsedd för Windows­programmet WordFinder, men
+presenteras här i dechiffrerad form.
+
+Indraget i de två ordlistornas text har lagts till (maskinellt) i
+efterhand för att underlätta läsning, men i övrigt har den
+ursprungliga radbrytningen bibehållits. Ordlista visas lämpligen med
+en tab­storlek på två eller möjligen tre tecken.
+
+I ordlistefilerna kommer uppslagsord alltid på en egen rad, och
+omges av krullparenteser "{}". Ord eller fraser som omges av "»«"
+utgör översättningar av närmast föregående fras eller uppslagsord (i
+WordFinder är dessa klickbara - dock minns jag ej i skrivande stund
+om frasen vid klickandet hamnar i klipp&klistra bufferten, eller om
+den direkt infogas i inputströmmen). Efter samliga ords förklaringar
+(inklusive den ordförklaringen i filen) följer en blankrad.
+
+I detta arkiv medföljer också två filer som innehåller index till
+motsvarande ordlistefil. Indexet består in lista över alla ord på
+källspråket (också här omgett av krullparenteser) föregånget av en
+siffra som talar om på vilken position i ordlistefilen som detta
+uppslagsord börjar. (Första byten i filen = position 0.)
+
+Indexet är till fördel då man endast vill söka igenom ordlistans
+definitioner (med t.ex. grep­kommandot) och inte är intresserad av
+de träffar en ev. dylik sökning skulle få i ordförklaringarna.
+
+
+Lite juridiskt krafs.
+
+Eftersom denna text är hederligt snodd ifrån Prisma förlag så är det
+bara att använda fritt, med eller utan attribuering till dem. (Fast
+risken är ju iofs större att de börjar bråka om du talar om för
+omvärlden varifrån den ursprungligen kommer. =|:-)
+
+Kort och gott, använd denna ordlista till vadhelst du känner för och
+på vadhelst sätt du vill, du kan ändå inte erhålla något särskilt
+tillstånd därtill. - Information wants to be free.
+
+
+Ursprungligt förord.
+
+Allmänt
+
+De svenska uppslagsorden återges i
+sträng bokstavsordning, alltså t ex 
+bildäck, bildöverföring, bilersättning.
+Facktermer anges med tekn., mil., sport.
+etc (se förkortningslistorna).
+
+I översättningarna har amerikanska
+alternativsätt markerats med AE.
+
+
+
+Använda tecken sv-en +en-sv
+
+Om ett uppslagsord har flera betydelser
+anges olika ordklasser med hjälp av 
+romerska siffror. Klart åtskilda betydelser 
+inom varje ordklass anges med arabiska 
+siffror, mindre betydelseskillnader med 
+semikolon.
+
+~       inuti artiklarna betecknar hela 
+        uppslagsordet, t ex arm: gå ~ i ~, 
+        med ~arna i kors.
+
+( )     används dels för kompletterande 
+        förklaringar, t ex hösäck (tom), dels 
+        för alternativa fraser, 
+        t ex ta ett hinder (sport.)
+
+
+
+Stavning (engelsk­amerikansk)
+
+Bortsett från rena undantagsfall har brittisk 
+stavning iakttagits i hela lexikonet. De 
+viktigaste skillnaderna mellan brittisk och 
+amerikansk praxis framgår av 
+nedanstående uppställning:
+
+Brittisk eng.           Amerikansk eng.
+------------------------------------------------------------
+travelling, waggon      traveling, wagon
+
+  I amerikansk engelska bibehålls 
+  enkelt l och g efter obetonad vokal.
+
+colour, neighbour       color, neighbor
+
+
+  Ändelsen -our motsvaras i amerikansk
+  engelska oftast av -or.
+
+metre, theatre          meter, theater
+
+  -re i ordslut motsvaras i amerikansk
+  engelska ofta av -er
+  
+cheque                  check
+plough                  plow
+catalogue               catalog
+programme               program
+
+  Bokstavsföljder som betecknar ett enda
+  ljud förenklas i amerikansk engelska. 
+  
+defence                 defense
+
+  -ce i ordslut motsvaras i amerikansk
+  engelska ibland av -se.
+
+
+
+
+Förkortningar sv-en + en-sv
+
+a           adjektiv
+absol.      absolut
+abstr.      abstrakt
+adj.        adjektiv[isk]
+adv         adverb
+AE.         amerikansk engelska
+akad.       akademinsk
+allm.       allmän[t]
+anat.       anatomi
+angl.       anglikanska kyrkan
+a p.        a person
+arkeol.     arkeologi
+arkit.      arkitektur
+art.        artikel
+astr.       astronomi
+attr.       attribut; attributiv[t]
+Austr.      australiensk
+
+bank.       bankväsen
+BE.         brittisk engelska;
+bergv.      bergväsen
+best.       bestämd
+bet.        betydelse
+beton.      betonad
+bibl.       bibliskt
+bildl.      bildlig[t]
+biol.       biologi
+bokb.       bokbinderi
+bokför.     bokföring
+boktr.      boktryckeri
+bot.        botanik
+byggn.      byggnadskonst
+
+ca          cirka
+Cambr.      Cambridge
+
+data.       databehandling
+demonstr.   demonstrativ[t]
+dep         deponens
+determ.     determinativ[t]
+dial.       dialektal[t]
+dipl.       diplomatterm
+
+e.d.        eller dylik[t]
+eg.         egentlig[en]
+ekol.       ekologi
+ekon.       ekonomi
+el.         eller
+elektr.     elektrisk, elektroteknisk
+elektron.   elektronisk,elektronik
+eng.        engelsk[a,-t]
+etc.        etcetera
+
+fack.       fackspråk
+farm.       farmakologi
+fem.        femininum
+film.       filmterm
+filos.      filosofi
+fisk.       fiskeriterm
+flyg.       flygväsen
+fonet.      fonetik
+foto.       fotografikonst
+fys.        fysik
+fysiol.     fysiologi
+fäkt.       fäktterm
+fören.      förenad
+förk.       förkortning
+försäkr.    försäkringsväsen 
+
+gen.        genitiv
+geogr.      geografi
+geol.       geologi
+geom.       geometri
+golf.       golfterm
+gjut.       gjuteriterm
+graf.       grafisk
+gruv.       gruvterm
+gymn.       gymnastikerm
+
+hand.       handelsterm
+her.        heraldik
+hist.       historisk[t]
+hopskr.     hopskrivs, hopskrivet
+högt.       högtidlig[t]
+
+ibl.        iblandlig[t] 
+imperf.     imperfektum 
+indef.      indefinitum 
+inf.        infinitivum 
+interj      interjektion 
+interr.     interrogativ[t] 
+Irl.        irländsk
+iron.       ironisk[t]
+i sht       i synnerhet
+
+jakt.       jaktterm
+jfr         jämför
+jordbr.     jordbruk
+jud.        judendom; judisk[t]
+jur.        juridik
+järnv.      järnvägsväsen
+
+kat.        katolsk
+kem.        kemi
+kir.        kirurgisk term
+kokk.       kokkonst
+koll.       kollektiv 
+komp.       komparativ
+konj        konjuktion
+konkr.      konkret
+konst.      konstterm
+konstr.     konstruktion
+kortsp.     kortspel
+kyrkl.      kyrklig
+
+lantbr.     lantbruk
+lantm.      lantmäteri
+lat.        latin
+litt.       litterär[t]
+log.        logik
+
+mat.        matematik
+med.        medicinik
+meteor.     meteorologi
+mil.        militärterm
+miner.      mineralogi
+mots.       motsats
+motsv.      motsvarande
+mus.        musik
+myt.        mytologi
+mål.        målarterm
+
+n           neutrum
+naturv.     naturvetenskap
+neds.       nedsättande
+neg.        negation
+ngn         någon
+ngt         något
+
+o.          och
+obest.      obestämd
+obeton.     obetonad
+o.d.        och dylik[t]
+opers.      opersonlig
+opt.        optik
+ordspr.     ordspråk
+oreg.       oregelbunden
+o.s.        oneself
+Oxf.        Oxford
+
+parl.       parlamentarisk
+part.       particip
+pass.       passiv
+perf.       perfekt[um]
+pers.       personl[lig]
+pl          pluralis
+poet.       poetisk[t]
+polit.      politik[t]
+poss.       possessiv[t]
+post.       postterm
+pred.       predikativ
+predik.     predikat, predikativ[t]
+prep        preposition
+pres.       presens
+pres. part  presens particip
+pron        pronomen
+psykol.     psykologi
+
+r           reale
+radar.      radarteknik
+radio.      radioteknik
+reg.        regelbunden
+rel.        relativ[t]
+relig.      religiont]
+ret.        retorisk
+rfl         reflexiv[t]
+ridk.       ridkonst
+rom.        romersk
+rumsbet.    rumsbetydelse
+
+räkn        räkneord
+
+s           substantiv
+s.b.        somebody
+schack.     schackterm
+sg          singularis
+självst.    självständig[t]
+sjö.        sjöterm
+Sk.         skotsk; [i] Skottland
+skeppsb     skeppsbyggeri
+skol.       skolväsen
+skämts.     skämtsam[t]
+sl.         slang
+slaktar.    slaktarterm
+sms.        sammansättning
+snick.      snickarterm
+s.o.        someone
+sociol.     sociologi
+spel.       speltermer
+spelt.      spelterm
+sport.      sportterm
+spr.        språkterm
+språkv.     språkvetenskap
+ss.         såsom
+stat.       statistik
+s.th.       something
+subj.       subjekt
+subst.      substansiverad
+sup.        supinum
+superl.     superlativ
+Sydafr.     sydafrikansk; [i] Sydafrika
+särskr.     särskrivs, särskrivet
+sömn.       sömnad
+
+t.          till
+tandläk.    tandläkarterm
+teat.       teaterterm
+tekn.       teknologi, teknisk
+tel.        telefon
+teol.       teologig
+text.       textilterm
+textil.     textilterm
+tidsbet.    tidsbetydelse
+trädg.      trädgårdsskötsel
+tullv.      tullväsen
+TV.         television
+ty.         tysk
+
+ung.        ungefär
+univ.       universitetsterm
+urspr.      ursprunglig[en]
+uttr.       uttryck
+
+v           verb
+vanl.       vanlig[en]
+vard.       vardagligt
+versl.      verslära
+vetensk.    vetenskaplig
+veter.      veterinärväsen
+vulg.       vulgär
+väv.        vävnadsteknik
+
+zool.       zoologi
+
+åld.        ålderdomlig[t], föråldrad (-t)
+
+äv.         även

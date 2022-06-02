@@ -1,0 +1,20 @@
+-*- org -*-
+
+* TODO Add 'javascript required' warning
+* TODO Store dictionaries in localStorage?
+* TODO Multi-column search result?
+* TODO sv-en.txt: put # in front of numbers
+* TODO sv-en.txt: put # in front of 'A-Z' counters
+* TODO sv-en.txt: put # in front of 'a-z)' counters
+* TODO sv-en.txt: kolla parenteser
+* DONE Make language field work
+  CLOSED: [2022-06-02 Thu 05:52]
+* DONE Submitting form should not reload page, but update URL
+  CLOSED: [2022-06-02 Thu 05:51]
+* DONE en-sv.txt: put # in front of 'a-z)' counters
+  CLOSED: [2022-05-31 Tue 13:06]
+* DONE en-sv.txt: put # in front of numbers
+  CLOSED: [2022-05-31 Tue 12:41]
+* DONE en-sv.txt: put # in front of 'A-Z' counters
+  CLOSED: [2022-05-31 Tue 12:40]
+* [eof]

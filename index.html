@@ -1,0 +1,151 @@
+<!DOCTYPE html><!--*-js-indent-level:2;css-indent-offset:2-*-->
+<!-- Copyright (c) 2001-2022 by zrajm. License: GPLv2 -->
+<meta charset="utf-8">
+<title>Swedish/English Dictionary (by zrajm)</title>
+<link rel=icon href="data:,">
+<style>
+/*reset*/
+/* *,*:before,*:after {margin:0;padding:0;box-sizing:inherit}
+html {box-sizing:border-box} */
+/*wait anim*/
+#waity{position:relative;width:44px;height:12px;float:right;margin:.25em 0}
+#waity p{position:absolute;width:12px;height:12px;border-radius:50%;background:#bbb;margin:0}
+#waity p:nth-child(1){left:0;animation:w1 .6s infinite}
+#waity p:nth-child(2){left:0;animation:w2 .6s infinite}
+#waity p:nth-child(3){left:16px;animation:w2 .6s infinite}
+#waity p:nth-child(4){left:32px;animation:w3 .6s infinite}
+@keyframes w1{0%{transform:scale(0)}100%{transform:scale(1)}}
+@keyframes w3{0%{transform:scale(1)}100%{transform:scale(0)}}
+@keyframes w2{0%{transform:translate(0,0)}100%{transform:translate(16px,0)}}
+/*other*/
+#result{margin:1em 0}
+a:hover{text-decoration:underline}
+article{text-indent:-1.5em;padding-left:1.5em}
+a{text-decoration:none}
+footer{background:#ccc;padding:3px}
+html{max-width:42em;margin:auto;font-family:sans-serif;line-height:1.5}
+body {overflow-y:scroll}
+mark{background:#00f4}
+</style>
+<div>
+  <a href=..>🡄 Back to zrajm’s web page</a>
+  <div id=waity><p><p><p><p></div>
+</div>
+<h1>English/Swedish Dictionary</h1>
+<form action=# onsubmit="formSumbit();return false">
+  <select name=l><option value=en>English–Swedish<option value=sv>Swedish–English</select>
+  <input size=30 name=w placeholder="Search word…" autofocus>
+  <button>Search</button>
+</form>
+<div id=result>
+  <p>Welcome to zrajm’s English–Swedish/<wbr>Swedish–English dictionary. It’s
+  not perfect, but decent enough that I have bothered to do a minor update of
+  this script to bring it into the 21st century. Do a couple of searches, and
+  see how you like it!
+
+  <p>You may use an asterisk (<tt>*</tt>) to match anything in your searches,
+  e.g. you could use »<tt>hej*</tt>« to search for all words beginning
+  with <i>hej</i>. A single asterisk is not a valid search, however.
+</div>
+<footer>© 2001–2022 by <a href=http://zrajm.org/>zrajm</a>, Uppsala.</footer>
+<script>
+  const $ = (x, $ = document) => $.querySelector(x)
+  const $title = $('title')
+  const orgTitle = $title.innerText
+  const $result = $('#result')
+  const dicts = {
+    en: 'en-sv.txt',
+    sv: 'sv-en.txt',
+  }
+  const form = {
+    l: {
+      elem: $(`[name="l"]`),
+      clean: x => dicts[x] ? x : Object.keys(dicts).sort()[0],
+    },
+    w: {
+      elem: $(`[name="w"]`),
+      clean: x => x,
+    },
+  }
+  // Data structure that returns promise, resolving in found data. Data is
+  // fetched on first invocation, thereafter cached.
+  //
+  // FIXME: Save in localStorage between page loads
+  const memo = (() => {
+    let cache = {}
+    let proc = x => x
+    function get(file) {
+      return cache[file]
+        ? new Promise(r => { r(cache[file]) })
+        : fetch(file)
+          .then(resp => resp.text())
+          .then(text => cache[file] = proc(text))
+    }
+    return { get, proc: cb => proc = cb }
+  })()
+
+  // Read URL parameters, fill in values in form on the page and return as
+  // object. (<form> is object where key is form 'name's and, values are the
+  // corresponding DOM elements.)
+  function getUrlParam(form) {
+    const param = new URLSearchParams(location.search) // get URL parameters
+    return Object.keys(form).reduce((a, k) => {
+      a[k] = form[k].clean(param.get(k).trim() || '')
+      form[k].elem.value = a[k]                        // fill in form value
+      return a
+    }, {})
+  }
+
+  function getForm(form) {
+    return Object.keys(form).reduce((a, name) => {
+      a[name] = form[name].clean(form[name].elem.value.trim())
+      return a
+    }, {})
+  }
+
+  function pageLoad() {
+    const param = getUrlParam(form)  // get values form URL
+    memo.proc(x => x.split(/\n\n/))
+    Promise.all(                      // fetch all dicts
+      Object.values(dicts).map(dict => memo.get(dict))
+    ).then(                           // when done, hide load animation
+      () => $('#waity').setAttribute('hidden', 1)
+    )
+    search(param)
+  }
+
+  function formSumbit() {
+    const param = getForm(form)      // get form values
+
+    // Update URL parameters.
+    history.pushState({}, '', '?' + (new URLSearchParams(param)))
+    search(param)
+  }
+
+  // Turn user query into regex.
+  const query2regex = q => RegExp(
+    '^(.*)\\b(' + q.replace(/\*/, '[a-zéåäöA-ZÉÅÄÖ]*') + ')\\b')
+
+  // Turn dictionary entry into HTML.
+  const entry2html = (entry, re) => entry
+    .replace(/^.*$/m, x => `<b>${x}</b>`)              // boldify lookup word
+    .replace(re, (_, a, b) => `${a}<mark>${b}</mark>`) // hilite found term
+    .replace(/»(.*?)«/gs, (_, a) => `<i>${a}</i>`)
+    .replace(/#([IV0-9A-Z]+|[a-z]+\))/g, (_, x) => `<b>${x}</b>`)
+    .replace(/'/g, '’')
+
+  function search(param) {
+    const query = param.w
+    const lang = param.l
+    $title.innerText = query + (query && ' – ') + orgTitle  // page title
+    memo.get(dicts[lang]).then(dict => {
+      const re = query2regex(query)
+      $result.innerHTML = (query ? dict : [])
+        .filter(x => re.test(x))
+        .map(x => '<article>' + entry2html(x, re) + '</article>')
+        .join('')
+    })
+  }
+  onload = pageLoad
+</script>
+<!--[eof]-->
