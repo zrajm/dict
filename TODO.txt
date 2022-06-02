@@ -1,5 +1,6 @@
 -*- org -*-
 
+* TODO Add 'No search result' message
 * TODO Add 'javascript required' warning
 * TODO Store dictionaries in localStorage?
 * TODO Multi-column search result?

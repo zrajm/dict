@@ -90,7 +90,7 @@ mark{background:#00f4}
   function getUrlParam(form) {
     const param = new URLSearchParams(location.search) // get URL parameters
     return Object.keys(form).reduce((a, k) => {
-      a[k] = form[k].clean(param.get(k).trim() || '')
+      a[k] = form[k].clean((param.get(k) || '').trim())
       form[k].elem.value = a[k]                        // fill in form value
       return a
     }, {})
