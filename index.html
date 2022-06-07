@@ -50,12 +50,14 @@ mark{background:#00f4}
 <footer>© 2001–2022 by <a href=http://zrajm.org/>zrajm</a>, Uppsala.</footer>
 <script>
   const $ = (x, $ = document) => $.querySelector(x)
+  const loadDict =  // return promise w/ list of entries
+    d => fetch(d).then(r => r.text()).then(r => r.split(/\n{2,}/).slice(1))
   const $title = $('title')
   const orgTitle = $title.innerText
   const $result = $('#result')
   const dicts = {
-    en: 'en-sv.txt',
-    sv: 'sv-en.txt',
+    en: loadDict('en-sv.txt'),
+    sv: loadDict('sv-en.txt'),
   }
   const form = {
     l: {
@@ -67,22 +69,6 @@ mark{background:#00f4}
       clean: x => x,
     },
   }
-  // Data structure that returns promise, resolving in found data. Data is
-  // fetched on first invocation, thereafter cached.
-  //
-  // FIXME: Save in localStorage between page loads
-  const memo = (() => {
-    let cache = {}
-    let proc = x => x
-    function get(file) {
-      return cache[file]
-        ? new Promise(r => { r(cache[file]) })
-        : fetch(file)
-          .then(resp => resp.text())
-          .then(text => cache[file] = proc(text))
-    }
-    return { get, proc: cb => proc = cb }
-  })()
 
   // Read URL parameters, fill in values in form on the page and return as
   // object. (<form> is object where key is form 'name's and, values are the
@@ -104,14 +90,10 @@ mark{background:#00f4}
   }
 
   function pageLoad() {
-    const param = getUrlParam(form)  // get values form URL
-    memo.proc(x => x.split(/\n\n/))
-    Promise.all(                      // fetch all dicts
-      Object.values(dicts).map(dict => memo.get(dict))
-    ).then(                           // when done, hide load animation
-      () => $('#waity').setAttribute('hidden', 1)
-    )
-    search(param)
+    // Hide load icon when all dicts loaded.
+    Promise.all(Object.values(dicts)).then(() => $('#waity').hidden = true)
+
+    search(getUrlParam(form))
   }
 
   function formSumbit() {
@@ -138,7 +120,7 @@ mark{background:#00f4}
     const query = param.w
     const lang = param.l
     $title.innerText = query + (query && ' – ') + orgTitle  // page title
-    memo.get(dicts[lang]).then(dict => {
+    dicts[lang].then(dict => {
       const re = query2regex(query)
       $result.innerHTML = (query ? dict : [])
         .filter(x => re.test(x))
