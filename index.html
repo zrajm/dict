@@ -106,9 +106,9 @@ mark{background:#00f4}
 
   // Turn user query into regex.
   const query2regex = q => RegExp(
-    '^(^|.*?[^a-zéåäöA-ZÉÅÄÖ])('
-      + q.replace(/[*]+/g, '[a-zéåäöA-ZÉÅÄÖ]*')
-      + ')(?![a-zéåäöA-ZÉÅÄÖ])', 'ui')
+    '^(^|.*?[^a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ])('
+      + q.replace(/[*]+/g, '[a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ]*')
+      + ')(?![a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ])', 'ui')
 
   // Turn dictionary entry into HTML.
   const entry2html = (entry, re) => entry
