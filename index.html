@@ -32,7 +32,7 @@ mark{background:#00f4}
   <div id=waity><p><p><p><p></div>
 </div>
 <h1>English/Swedish Dictionary</h1>
-<form action=# onsubmit="formSumbit();return false">
+<form action=# onsubmit="formSubmit();return false">
   <select name=l><option value=en>English–Swedish<option value=sv>Swedish–English</select>
   <input size=30 name=w placeholder="Search word…" autofocus>
   <button>Search</button>
@@ -96,7 +96,7 @@ mark{background:#00f4}
     search(getUrlParam(form))
   }
 
-  function formSumbit() {
+  function formSubmit() {
     const param = getForm(form)      // get form values
 
     // Update URL parameters.
