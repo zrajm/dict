@@ -7,8 +7,6 @@
 * TODO Search should work even if 'l' (language) is unset
 * TODO Copyright notice at bottom of screen/content
   Needs <body> 'min-height' of 100%
-* TODO '\b' in regex matches weirdly with åäö
-  E.g. the query 'hej' shouldn't match 'ståhej'.
 * TODO Add 'javascript required' warning
 * TODO Store dictionaries in localStorage?
   loadDict() should load from localStorage if possible.
@@ -17,6 +15,9 @@
 * TODO sv-en.txt: put # in front of 'A-Z' counters
 * TODO sv-en.txt: put # in front of 'a-z)' counters
 * TODO sv-en.txt: kolla parenteser
+* DONE '\b' in regex matches weirdly with åäö
+  CLOSED: [2022-06-07 Tue 17:08]
+  E.g. the query 'hej' shouldn't match 'ståhej', 'adj' should not match 'adjö'.
 * DONE Multiple asterisks ('***') should mean same as a single one
   CLOSED: [2022-06-07 Tue 17:02]
 * DONE Refactored dictionary handling
