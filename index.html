@@ -112,8 +112,8 @@ mark{background:#00f4}
 
   // Turn dictionary entry into HTML.
   const entry2html = (entry, re) => entry
-    .replace(/^.*$/m, x => `<b>${x}</b>`)              // boldify lookup word
     .replace(re, (_, a, b) => `${a}<mark>${b}</mark>`) // hilite found term
+    .replace(/^.*$/m, x => `<b>${x}</b>`)              // boldify lookup word
     .replace(/»(.*?)«/gs, (_, a) => `<i>${a}</i>`)
     .replace(/#([IV0-9A-Z]+|[a-z]+\))/g, (_, x) => `<b>${x}</b>`)
     .replace(/'/g, '’')
