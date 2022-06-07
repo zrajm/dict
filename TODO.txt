@@ -4,7 +4,6 @@
   + Empty query ('w' field exists in URL but is empty) display 'No search
     result' message.
   + No query ('w' field does not exist in URL) display 'about message'.
-* TODO Multiple asterisks ('***') should mean same as a single one
 * TODO Search should work even if 'l' (language) is unset
 * TODO Copyright notice at bottom of screen/content
   Needs <body> 'min-height' of 100%
@@ -18,6 +17,8 @@
 * TODO sv-en.txt: put # in front of 'A-Z' counters
 * TODO sv-en.txt: put # in front of 'a-z)' counters
 * TODO sv-en.txt: kolla parenteser
+* DONE Multiple asterisks ('***') should mean same as a single one
+  CLOSED: [2022-06-07 Tue 17:02]
 * DONE Refactored dictionary handling
   CLOSED: [2022-06-07 Tue 15:59]
 * DONE Make language field work

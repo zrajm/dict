@@ -106,7 +106,7 @@ mark{background:#00f4}
 
   // Turn user query into regex.
   const query2regex = q => RegExp(
-    '^(.*)\\b(' + q.replace(/\*/, '[a-zéåäöA-ZÉÅÄÖ]*') + ')\\b')
+    '^(.*)\\b(' + q.replace(/[*]+/g, '[a-zéåäöA-ZÉÅÄÖ]*') + ')\\b')
 
   // Turn dictionary entry into HTML.
   const entry2html = (entry, re) => entry
