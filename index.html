@@ -59,11 +59,7 @@ mark{background:#00f4}
     en: loadDict('en-sv.txt'),
     sv: loadDict('sv-en.txt'),
   }
-  const form = {
-    l: x => dicts[x] ? x : Object.keys(dicts).sort()[0],
-    w: x => x.trim().replace(/\s+/, ' '),
-  }
-  const formNames = Object.keys(form)
+  const formNames = ['l', 'w']
 
   // Return URL parameters named in list <names>, fill in HTML form.
   function getUrlParam(names) {
@@ -115,9 +111,10 @@ mark{background:#00f4}
     .replace(/#([IV0-9A-Z]+|[a-z]+\))/g, (_, x) => `<b>${x}</b>`)
     .replace(/'/g, '’')
 
-  function search(param) {
-    const query = form.w(param.w)
-    const lang = form.l(param.l)
+  function search({ l, w }) {
+    const query = w.trim().replace(/\s+/, ' ')
+    const lang = dicts[l] ? l : Object.keys(dicts).sort()[0]
+
     $title.innerText = (query ? `${query} – ` : '') + orgTitle
     dicts[lang].then(dict => {
       const re = query2regex(query)
