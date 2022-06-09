@@ -60,48 +60,45 @@ mark{background:#00f4}
     sv: loadDict('sv-en.txt'),
   }
   const form = {
-    l: {
-      elem: $(`[name="l"]`),
-      clean: x => dicts[x] ? x : Object.keys(dicts).sort()[0],
-    },
-    w: {
-      elem: $(`[name="w"]`),
-      clean: x => x.trim(),
-    },
+    l: x => dicts[x] ? x : Object.keys(dicts).sort()[0],
+    w: x => x.trim().replace(/\s+/, ' '),
+  }
+  const formNames = Object.keys(form)
+
+  // Return URL parameters named in list <names>, fill in HTML form.
+  function getUrlParam(names) {
+    let a = {}
+    const e = document.forms[0].elements
+    const p = new URLSearchParams(location.search)
+    for (const k of names) {
+      const v = p.get(k)
+      if (v !== null) {
+        e[k].value = a[k] = v
+      }
+    }
+    return a
   }
 
-  // Read URL parameters, fill in values in form on the page and return as
-  // object. (<form> is object where key is form 'name's and, values are the
-  // corresponding DOM elements.)
-  function getUrlParam(form) {
-    const param = new URLSearchParams(location.search) // get URL parameters
-    return Object.keys(form).reduce((a, k) => {
-      a[k] = form[k].clean((param.get(k) || '').trim())
-      form[k].elem.value = a[k]                        // fill in form value
-      return a
-    }, {})
-  }
-
-  function getForm(form) {
-    return Object.keys(form).reduce((a, name) => {
-      a[name] = form[name].clean(form[name].elem.value.trim())
-      return a
-    }, {})
+  // Return form values named in list <names>, update URL parameters.
+  function getForm(names) {
+    let a = {}
+    const e = document.forms[0].elements
+    for (const k of names) {
+      a[k] = e[k].value
+    }
+    history.pushState({}, '', '?' + (new URLSearchParams(a)))
+    return a
   }
 
   function pageLoad() {
     // Hide load icon when all dicts loaded.
     Promise.all(Object.values(dicts)).then(() => $('#waity').hidden = true)
 
-    search(getUrlParam(form))
+    search(getUrlParam(formNames))
   }
 
   function formSubmit() {
-    const param = getForm(form)      // get form values
-
-    // Update URL parameters.
-    history.pushState({}, '', '?' + (new URLSearchParams(param)))
-    search(param)
+    search(getForm(formNames))
   }
 
   // Turn user query into regex.
@@ -119,15 +116,16 @@ mark{background:#00f4}
     .replace(/'/g, '’')
 
   function search(param) {
-    const query = param.w
-    const lang = param.l
-    $title.innerText = query + (query && ' – ') + orgTitle  // page title
+    const query = form.w(param.w)
+    const lang = form.l(param.l)
+    $title.innerText = (query ? `${query} – ` : '') + orgTitle
     dicts[lang].then(dict => {
       const re = query2regex(query)
-      $result.innerHTML = (query ? dict : [])
+      const matches = (query && query !== '*' ? dict : [])
         .filter(x => re.test(x))
         .map(x => '<article>' + entry2html(x, re) + '</article>')
         .join('')
+      $result.innerHTML = matches || '<b>No matches found</b>'
     })
   }
   onload = pageLoad
