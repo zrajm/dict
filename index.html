@@ -18,7 +18,7 @@ html {box-sizing:border-box} */
 @keyframes w3{0%{transform:scale(1)}100%{transform:scale(0)}}
 @keyframes w2{0%{transform:translate(0,0)}100%{transform:translate(16px,0)}}
 /*other*/
-#result{margin:1em 0}
+#result,#info{margin:1em 0}
 a:hover{text-decoration:underline}
 article{text-indent:-1.5em;padding-left:1.5em}
 a{text-decoration:none}
@@ -37,7 +37,8 @@ mark{background:#00f4}
   <input size=30 name=w placeholder="Search word…" autofocus>
   <button>Search</button>
 </form>
-<div id=result>
+<div id=result></div>
+<div id=info hidden>
   <p>Welcome to zrajm’s English–Swedish/<wbr>Swedish–English dictionary. It’s
   not perfect, but decent enough that I have bothered to do a minor update of
   this script to bring it into the 21st century. Do a couple of searches, and
@@ -54,6 +55,7 @@ mark{background:#00f4}
     d => fetch(d).then(r => r.text()).then(r => r.split(/\n{2,}/).slice(1))
   const $title = $('title')
   const orgTitle = $title.innerText
+  const $info = $('#info')
   const $result = $('#result')
   const dicts = {
     en: loadDict('en-sv.txt'),
@@ -100,7 +102,7 @@ mark{background:#00f4}
   // Turn user query into regex.
   const query2regex = q => RegExp(
     '^(^|.*?[^a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ])('
-      + q.replace(/[*]+/g, '[a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ]*')
+      + q.replace(/[*]/g, '[a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ]*')
       + ')(?![a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ])', 'ui')
 
   // Turn dictionary entry into HTML.
@@ -111,18 +113,27 @@ mark{background:#00f4}
     .replace(/#([IV0-9A-Z]+|[a-z]+\))/g, (_, x) => `<b>${x}</b>`)
     .replace(/'/g, '’')
 
+  function escapeHtml(x) {
+    return x.replace(
+      /["&<>]/g,
+      x => `&${{ '"': 'quot', '&': 'amp', '<': 'lt', '>': 'gt' }[x]};`)
+  }
+
   function search({ l, w }) {
-    const query = w.trim().replace(/\s+/, ' ')
+    const query = (w || '').trim().replace(/\s+/, ' ').replace(/[*]{2,}/, '*')
     const lang = dicts[l] ? l : Object.keys(dicts).sort()[0]
 
     $title.innerText = (query ? `${query} – ` : '') + orgTitle
+    $info.hidden   = query !== ''
+    $result.hidden = query === ''
+
     dicts[lang].then(dict => {
       const re = query2regex(query)
-      const matches = (query && query !== '*' ? dict : [])
+      const matches = (query !== '' && query !== '*' ? dict : [])
         .filter(x => re.test(x))
         .map(x => '<article>' + entry2html(x, re) + '</article>')
         .join('')
-      $result.innerHTML = matches || '<b>No matches found</b>'
+      $result.innerHTML = matches || `<b>No matches for »${escapeHtml(query)}«</b>`
     })
   }
   onload = pageLoad
