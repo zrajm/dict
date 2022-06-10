@@ -32,7 +32,7 @@ mark{background:#00f4}
   <div id=waity><p><p><p><p></div>
 </div>
 <h1>English/Swedish Dictionary</h1>
-<form action=# onsubmit="formSubmit();return false">
+<form>
   <select name=l><option value=en>English–Swedish<option value=sv>Swedish–English</select>
   <input size=30 name=w placeholder="Search word…" autofocus>
   <button>Search</button>
@@ -86,17 +86,6 @@ mark{background:#00f4}
     return a
   }
 
-  function pageLoad() {
-    // Hide load icon when all dicts loaded.
-    Promise.all(Object.values(dicts)).then(() => $('#waity').hidden = true)
-
-    search(getUrlParam())
-  }
-
-  function formSubmit() {
-    search(getForm())
-  }
-
   // Turn user query into regex.
   const query2regex = q => RegExp(
     '^(^|.*?[^a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ])('
@@ -133,7 +122,13 @@ mark{background:#00f4}
         .join('')
       $result.innerHTML = matches || `<b>No matches for »${escapeHtml(query)}«</b>`
     })
+    return false
   }
-  onload = pageLoad
+
+  // Remove load icon when all dicts loaded.
+  Promise.all(Object.values(dicts)).then(() => $('#waity').remove())
+
+  onload = onpopstate = () => search(getUrlParam())
+  onsubmit = () => search(getForm())
 </script>
 <!--[eof]-->

@@ -1,6 +1,5 @@
 -*- org -*-
 
-* TODO Going 'back' should update page
 * TODO Copyright notice at bottom of screen/content
   Needs <body> 'min-height' of 100%
 * TODO Add 'javascript required' warning
@@ -11,6 +10,8 @@
 * TODO sv-en.txt: put # in front of 'A-Z' counters
 * TODO sv-en.txt: put # in front of 'a-z)' counters
 * TODO sv-en.txt: kolla parenteser
+* DONE Going 'back' should update page
+  CLOSED: [2022-06-10 Fri 12:37]
 * DONE Differentiate between query/no query
   CLOSED: [2022-06-09 Thu 18:07]
   + Missing/empty query -- display about message
