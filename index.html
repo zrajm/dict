@@ -62,30 +62,6 @@ mark{background:#00f4}
     sv: loadDict('sv-en.txt'),
   }
 
-  // Return URL parameters, fill in HTML form.
-  function getUrlParam() {
-    let a = {}
-    const e = document.forms[0].elements
-    for (const [k, v] of new URLSearchParams(location.search)) {
-      if (v !== null) {
-        e[k].value = a[k] = v
-      }
-    }
-    return a
-  }
-
-  // Return form values, update URL parameters.
-  function getForm() {
-    let a = {}
-    for (const e of document.forms[0].elements) {
-      if (e.name) {
-        a[e.name] = e.value
-      }
-    }
-    history.pushState({}, '', '?' + (new URLSearchParams(a)))
-    return a
-  }
-
   // Turn user query into regex.
   const query2regex = q => RegExp(
     '^(^|.*?[^a-zàçéèêüåäöA-ZÀÇÉÈÊÜÅÄÖ])('
@@ -125,10 +101,31 @@ mark{background:#00f4}
     return false
   }
 
+  // Invoke search on page load and form submission.
+  ;((form, hook) => {
+    let d
+    const p = x => new URLSearchParams(x)
+    function readUrlParam() {
+      d = p(location.search)
+      for (const [k, v] of d) {
+        if (v && form.elements[k]) {
+          form.elements[k].value = v
+        }
+      }
+      hook(Object.fromEntries(d))
+    }
+    function readFormValues() {
+      d = p(new FormData(form))
+      history.pushState({}, '', '?' + d)
+      hook(Object.fromEntries(d))
+      return false
+    }
+    onpopstate = readUrlParam
+    form.onsubmit = readFormValues
+    readUrlParam()
+  })(document.forms[0], search)
+
   // Remove load icon when all dicts loaded.
   Promise.all(Object.values(dicts)).then(() => $('#waity').remove())
-
-  onload = onpopstate = () => search(getUrlParam())
-  onsubmit = () => search(getForm())
 </script>
 <!--[eof]-->
