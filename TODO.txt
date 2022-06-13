@@ -1,5 +1,6 @@
 -*- org -*-
 
+* TODO localStorage-based search history(?)
 * TODO Copyright notice at bottom of screen/content
   Needs <body> 'min-height' of 100%
 * TODO Add 'javascript required' warning
